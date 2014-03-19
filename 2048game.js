@@ -46,8 +46,11 @@ GameBoard.prototype = {
     console.log("adding num")
   },
   printboard: function(){
-    $("h1").append("<h1>"+this.gameArray +"</h1>")
-    // document.getElementsByTagName("h1").appendChild("<h1>"+this.gameArray +"</h1>")
+    for (i = 0; i < this.gameArray.length; i++){
+      console.log(this)
+      $('h1').append("<div>" + this.gameArray[i].value + "</div>") // document.getElementsByTagName("h1").appendChild("<h1>"+this.gameArray +"</h1>")
+    }
+    $('body').contents().wrapAll('<div class="board">')
   }
 }
 
