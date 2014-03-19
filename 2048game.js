@@ -6,6 +6,7 @@
 
 window.onload = function(){ init()}
 
+
 function init(){
   board = createBoard();
   var times = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]
@@ -13,6 +14,7 @@ function init(){
     piece = createPieces()
     board.gameArray.push(piece)
   }
+  window.addEventListener("keyup", function(){ keyBoard(event, board)})
   startGame(board)
 };
 
@@ -21,8 +23,20 @@ function init(){
 startGame = function(board){
   board.propogate()
   board.addnumber()
+  board.printboard()
 }
 
+keyBoard = function(event, board){
+  if(event.keyCode == 38) {
+    console.log("38 up")
+  } else if(event.keyCode == 40) {
+    console.log("40 down")
+  } else if(event.keyCode == 37) {
+    console.log("37 left")
+  } else if (event.keyCode == 39) {
+    console.log("39 right")
+  }
+}
 
 GameBoard.prototype = {
   propogate: function(){
@@ -30,6 +44,10 @@ GameBoard.prototype = {
   },
   addnumber: function(){
     console.log("adding num")
+  },
+  printboard: function(){
+    $("h1").append("<h1>"+this.gameArray +"</h1>")
+    // document.getElementsByTagName("h1").appendChild("<h1>"+this.gameArray +"</h1>")
   }
 }
 
