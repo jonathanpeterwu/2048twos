@@ -6,19 +6,15 @@
 
 window.onload = function(){ init()}
 
-
 function init(){
   board = createBoard();
-  var times = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]
-  for(var i=0; i <times.length; i++){
+  for(var i=0; i < 16; i++){
     piece = createPieces()
     board.gameArray.push(piece)
   }
-  window.addEventListener("keyup", function(){ keyBoard(event, board)})
+  window.addEventListener("keyup", function(){ userMove(event, board)})
   startGame(board)
 };
-
-
 
 startGame = function(board){
   board.propogate()
@@ -26,16 +22,64 @@ startGame = function(board){
   board.printboard()
 }
 
-keyBoard = function(event, board){
+userMove = function(event, board){
   if(event.keyCode == 38) {
-    console.log("38 up")
+    tileMove.up(board);
+    addTile.up(board);
   } else if(event.keyCode == 40) {
-    console.log("40 down")
+    tileMove.down(board);
+    addTile.down(board);
   } else if(event.keyCode == 37) {
-    console.log("37 left")
+    tileMove.left(board);
+    addTile.left(board);
   } else if (event.keyCode == 39) {
-    console.log("39 right")
+    tileMove.right(board);
+    addTile.right(board);
   }
+}
+
+tileMove = function(){
+  this.type ="mover"
+}
+
+addTile = function(){
+  this.type = "tiler"
+}
+
+addTile.up = function(board){
+  var array = []
+  for(i = 0; i < board.gameArray.length; i++){
+      array.push(board.gameArray[i].value)
+  };
+  function include(array, object){
+    return (array.indexOf(object) != -1)
+  }
+};
+
+addTile.down = function(){
+  console.log('addin tiles movin down')
+}
+addTile.left = function(){
+  console.log('addin tiles movin left')
+}
+addTile.right = function(){
+  console.log('addin tiles movin right')
+}
+
+tileMove.up = function(){
+  console.log('movin up in the world')
+}
+
+tileMove.down = function(){
+  console.log('movin down in the world')
+}
+
+tileMove.left= function(){
+  console.log('movin left in the world')
+}
+
+tileMove.right = function(){
+  console.log('movin right in the world')
 }
 
 GameBoard.prototype = {
@@ -47,13 +91,11 @@ GameBoard.prototype = {
   },
   printboard: function(){
     for (i = 0; i < this.gameArray.length; i++){
-      console.log(this)
-      $('h1').append("<div>" + this.gameArray[i].value + "</div>") // document.getElementsByTagName("h1").appendChild("<h1>"+this.gameArray +"</h1>")
+      if(this.gameArray[i].value == 0){$("#box").append("<div id='"+i+"' class='cell'></div>")}
+      else{ $('#box').append("<div id='"+ i + "' class='cell'>" +this.gameArray[i].value + "</div>")} // document.getElementsByTagName("h1").appendChild("<h1>"+this.gameArray +"</h1>")}
     }
-    $('body').contents().wrapAll('<div class="board">')
   }
 }
-
 
 //gameboard model
 function GameBoard(){
